@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import '../models/profile.dart';
 import 'edit_profile_page.dart';
+import 'about_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -24,31 +25,40 @@ class _ProfilePageState extends State<ProfilePage> {
     github: 'Wanzzz88',
   );
 
-  // Fungsi untuk membuka halaman Edit Profil
+  // Membuka halaman Edit Profil
   Future<void> _editProfil() async {
-
-    final dataBaru = await Navigator.push<Profile>(
+    final Profile? dataBaru = await Navigator.push<Profile>(
       context,
       MaterialPageRoute(
-        builder: (context) => EditProfilePage(
-          profile: profile,
-        ),
+        builder: (context) {
+          return EditProfilePage(profile: profile);
+        },
       ),
     );
 
-    // Memperbarui data setelah pengguna menekan Simpan
-    if (dataBaru != null) {
+    // Memperbarui data profil
+    if (dataBaru != null && mounted) {
       setState(() {
         profile = dataBaru;
       });
     }
   }
 
+  // Membuka halaman Tentang Saya
+  void _bukaTentangSaya() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AboutPage(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
 
-      // AppBar
+      // APP BAR
       appBar: AppBar(
         title: const Text('Profil Mahasiswa'),
         backgroundColor: Colors.deepPurple,
@@ -56,14 +66,87 @@ class _ProfilePageState extends State<ProfilePage> {
         centerTitle: true,
       ),
 
-      // Isi halaman profil
+      // DRAWER / MENU SAMPING
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+
+            // Header Drawer
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Colors.deepPurple,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const CircleAvatar(
+                    radius: 30,
+                    backgroundColor: Colors.white,
+                    child: Icon(
+                      Icons.person,
+                      size: 35,
+                      color: Colors.deepPurple,
+                    ),
+                  ),
+
+                  const SizedBox(height: 10),
+
+                  Text(
+                    profile.nama,
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+
+                  Text(
+                    profile.nim,
+                    style: const TextStyle(
+                      color: Colors.white70,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            // Menu Profil
+            ListTile(
+              leading: const Icon(
+                Icons.person,
+                color: Colors.deepPurple,
+              ),
+              title: const Text('Profil Saya'),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ),
+
+            // Menu Tentang Saya
+            ListTile(
+              leading: const Icon(
+                Icons.info,
+                color: Colors.deepPurple,
+              ),
+              title: const Text('Tentang Saya'),
+              onTap: () {
+                Navigator.pop(context);
+                _bukaTentangSaya();
+              },
+            ),
+          ],
+        ),
+      ),
+
+      // BODY / ISI HALAMAN
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
-
         child: Column(
           children: [
 
-            // Avatar mahasiswa tanpa foto
+            // FOTO / AVATAR PROFIL
             const CircleAvatar(
               radius: 60,
               backgroundColor: Colors.deepPurple,
@@ -76,7 +159,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
             const SizedBox(height: 16),
 
-            // Nama mahasiswa
+            // NAMA MAHASISWA
             Text(
               profile.nama,
               textAlign: TextAlign.center,
@@ -91,44 +174,37 @@ class _ProfilePageState extends State<ProfilePage> {
             // NIM
             Text(
               'NIM: ${profile.nim}',
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontSize: 16),
             ),
 
             const SizedBox(height: 5),
 
-            // Program studi
+            // PROGRAM STUDI
             Text(
               profile.prodi,
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontSize: 16),
             ),
 
             const SizedBox(height: 5),
 
-            // Kelas
+            // KELAS
             Text(
               'Kelas: ${profile.kelas}',
-              style: const TextStyle(
-                fontSize: 16,
-              ),
+              style: const TextStyle(fontSize: 16),
             ),
 
             const SizedBox(height: 20),
 
-            // Card tentang saya
+            // BIO SINGKAT
             Card(
               elevation: 3,
               child: Padding(
                 padding: const EdgeInsets.all(16),
-
                 child: Column(
                   children: [
 
                     const Text(
-                      'Tentang Saya',
+                      'Bio Singkat',
                       style: TextStyle(
                         fontSize: 18,
                         fontWeight: FontWeight.bold,
@@ -148,7 +224,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
             const SizedBox(height: 20),
 
-            // Judul informasi kontak
+            // JUDUL INFORMASI KONTAK
             const Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -162,7 +238,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
             const SizedBox(height: 10),
 
-            // Card email
+            // EMAIL
             Card(
               child: ListTile(
                 leading: const Icon(
@@ -174,7 +250,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
 
-            // Card nomor HP
+            // NOMOR HP
             Card(
               child: ListTile(
                 leading: const Icon(
@@ -186,7 +262,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
 
-            // Card GitHub
+            // GITHUB
             Card(
               child: ListTile(
                 leading: const Icon(
@@ -198,12 +274,12 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
 
-            const SizedBox(height: 70),
+            const SizedBox(height: 80),
           ],
         ),
       ),
 
-      // Tombol Edit Profil
+      // TOMBOL EDIT PROFIL
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _editProfil,
         backgroundColor: Colors.deepPurple,
