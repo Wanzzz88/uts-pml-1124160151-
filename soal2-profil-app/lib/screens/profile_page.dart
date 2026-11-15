@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import '../models/profile.dart';
+import 'edit_profile_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -18,14 +19,36 @@ class _ProfilePageState extends State<ProfilePage> {
     prodi: 'Software Engineering',
     kelas: 'TI 24 SE1',
     bio: 'Mahasiswa yang tertarik dengan pemrograman dan teknologi.',
-    email: 'ridwan@gmail.com',
-    hp: '088291392183',
+    email: 'emailkamu@example.com',
+    hp: '081234567890',
     github: 'Wanzzz88',
   );
+
+  // Fungsi untuk membuka halaman Edit Profil
+  Future<void> _editProfil() async {
+
+    final dataBaru = await Navigator.push<Profile>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditProfilePage(
+          profile: profile,
+        ),
+      ),
+    );
+
+    // Memperbarui data setelah pengguna menekan Simpan
+    if (dataBaru != null) {
+      setState(() {
+        profile = dataBaru;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+      // AppBar
       appBar: AppBar(
         title: const Text('Profil Mahasiswa'),
         backgroundColor: Colors.deepPurple,
@@ -33,12 +56,14 @@ class _ProfilePageState extends State<ProfilePage> {
         centerTitle: true,
       ),
 
+      // Isi halaman profil
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20),
+
         child: Column(
           children: [
 
-            // Avatar profil tanpa foto
+            // Avatar mahasiswa tanpa foto
             const CircleAvatar(
               radius: 60,
               backgroundColor: Colors.deepPurple,
@@ -54,6 +79,7 @@ class _ProfilePageState extends State<ProfilePage> {
             // Nama mahasiswa
             Text(
               profile.nama,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 23,
                 fontWeight: FontWeight.bold,
@@ -62,31 +88,45 @@ class _ProfilePageState extends State<ProfilePage> {
 
             const SizedBox(height: 8),
 
-            // Informasi mahasiswa
+            // NIM
             Text(
               'NIM: ${profile.nim}',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                fontSize: 16,
+              ),
             ),
 
+            const SizedBox(height: 5),
+
+            // Program studi
             Text(
               profile.prodi,
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                fontSize: 16,
+              ),
             ),
 
+            const SizedBox(height: 5),
+
+            // Kelas
             Text(
               'Kelas: ${profile.kelas}',
-              style: const TextStyle(fontSize: 16),
+              style: const TextStyle(
+                fontSize: 16,
+              ),
             ),
 
             const SizedBox(height: 20),
 
-            // Informasi bio
+            // Card tentang saya
             Card(
               elevation: 3,
               child: Padding(
                 padding: const EdgeInsets.all(16),
+
                 child: Column(
                   children: [
+
                     const Text(
                       'Tentang Saya',
                       style: TextStyle(
@@ -122,7 +162,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
             const SizedBox(height: 10),
 
-            // Informasi email
+            // Card email
             Card(
               child: ListTile(
                 leading: const Icon(
@@ -134,7 +174,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
 
-            // Informasi nomor HP
+            // Card nomor HP
             Card(
               child: ListTile(
                 leading: const Icon(
@@ -146,7 +186,7 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
 
-            // Informasi GitHub
+            // Card GitHub
             Card(
               child: ListTile(
                 leading: const Icon(
@@ -157,8 +197,19 @@ class _ProfilePageState extends State<ProfilePage> {
                 subtitle: Text(profile.github),
               ),
             ),
+
+            const SizedBox(height: 70),
           ],
         ),
+      ),
+
+      // Tombol Edit Profil
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _editProfil,
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.edit),
+        label: const Text('Edit Profil'),
       ),
     );
   }
