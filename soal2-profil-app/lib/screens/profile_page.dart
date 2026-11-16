@@ -146,14 +146,12 @@ class _ProfilePageState extends State<ProfilePage> {
         child: Column(
           children: [
 
-            // FOTO / AVATAR PROFIL
+            // FOTO PROFIL MAHASISWA
             const CircleAvatar(
               radius: 60,
               backgroundColor: Colors.deepPurple,
-              child: Icon(
-                Icons.person,
-                size: 65,
-                color: Colors.white,
+              backgroundImage: AssetImage(
+                'assets/images/Foto_Profil.jpeg',
               ),
             ),
 
