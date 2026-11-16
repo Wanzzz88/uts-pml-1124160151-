@@ -1,8 +1,6 @@
 
 import 'package:flutter/material.dart';
 import '../models/profile.dart';
-import 'edit_profile_page.dart';
-import 'about_page.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -25,15 +23,12 @@ class _ProfilePageState extends State<ProfilePage> {
     github: 'Wanzzz88',
   );
 
-  // Membuka halaman Edit Profil
+  // Membuka halaman Edit Profil melalui Named Route
   Future<void> _editProfil() async {
-    final Profile? dataBaru = await Navigator.push<Profile>(
+    final Profile? dataBaru = await Navigator.pushNamed<Profile>(
       context,
-      MaterialPageRoute(
-        builder: (context) {
-          return EditProfilePage(profile: profile);
-        },
-      ),
+      '/edit-profile',
+      arguments: profile,
     );
 
     // Memperbarui data profil
@@ -44,13 +39,11 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
-  // Membuka halaman Tentang Saya
+  // Membuka halaman Tentang Saya melalui Named Route
   void _bukaTentangSaya() {
-    Navigator.push(
+    Navigator.pushNamed(
       context,
-      MaterialPageRoute(
-        builder: (context) => const AboutPage(),
-      ),
+      '/about',
     );
   }
 

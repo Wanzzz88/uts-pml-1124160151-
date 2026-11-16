@@ -1,6 +1,5 @@
 
 import 'package:flutter/material.dart';
-import 'profile_page.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -11,17 +10,17 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  // Key untuk mengatur dan memeriksa Form
+  // Key untuk Form
   final _formKey = GlobalKey<FormState>();
 
-  // Controller untuk input
+  // Controller input
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  // Mengatur loading
+  // Status loading
   bool _isLoading = false;
 
-  // Mengatur tampilan password
+  // Status tampilan password
   bool _isPasswordVisible = false;
 
   @override
@@ -34,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
   // Fungsi login
   Future<void> _login() async {
 
-    // Memeriksa validasi input
+    // Memeriksa validasi
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -55,18 +54,15 @@ class _LoginPageState extends State<LoginPage> {
       _isLoading = false;
     });
 
-    // Masuk ke halaman profil
-    Navigator.pushReplacement(
+    // Berpindah ke halaman Profil menggunakan Named Route
+    Navigator.pushReplacementNamed(
       context,
-      MaterialPageRoute(
-        builder: (context) => const ProfilePage(),
-      ),
+      '/profile',
     );
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       body: SafeArea(
         child: Center(
@@ -155,7 +151,6 @@ class _LoginPageState extends State<LoginPage> {
                             decoration: InputDecoration(
                               labelText: 'Password',
                               prefixIcon: const Icon(Icons.lock),
-
                               border: const OutlineInputBorder(),
 
                               // Tombol tampilkan password
@@ -191,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
 
                           const SizedBox(height: 25),
 
-                          // Tombol login
+                          // Tombol Login
                           SizedBox(
                             width: double.infinity,
                             height: 50,
