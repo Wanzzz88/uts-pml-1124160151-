@@ -17,19 +17,18 @@ class AboutPage extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         children: [
 
-          // Identitas mahasiswa
+          // FOTO PROFIL
           const CircleAvatar(
-            radius: 45,
+            radius: 60,
             backgroundColor: Colors.deepPurple,
-            child: Icon(
-              Icons.person,
-              size: 50,
-              color: Colors.white,
+            backgroundImage: AssetImage(
+              'assets/images/Foto_Profil.jpeg',
             ),
           ),
 
           const SizedBox(height: 15),
 
+          // NAMA MAHASISWA
           const Text(
             'Muhammad Ridwan',
             textAlign: TextAlign.center,
@@ -38,6 +37,8 @@ class AboutPage extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+
+          const SizedBox(height: 5),
 
           const Text(
             '1124160151',
@@ -51,7 +52,7 @@ class AboutPage extends StatelessWidget {
 
           const SizedBox(height: 25),
 
-          // Pengaturan tema
+          // PENGATURAN TAMPILAN
           const Text(
             'Pengaturan Tampilan',
             style: TextStyle(
@@ -85,7 +86,7 @@ class AboutPage extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          // Keahlian
+          // KEAHLIAN
           const Text(
             'Keahlian',
             style: TextStyle(
@@ -129,7 +130,7 @@ class AboutPage extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          // Hobi
+          // HOBI
           const Text(
             'Hobi',
             style: TextStyle(
@@ -161,7 +162,7 @@ class AboutPage extends StatelessWidget {
 
           const SizedBox(height: 20),
 
-          // Riwayat pendidikan
+          // RIWAYAT PENDIDIKAN
           const Text(
             'Riwayat Pendidikan',
             style: TextStyle(
@@ -188,9 +189,9 @@ class AboutPage extends StatelessWidget {
           const Card(
             child: ListTile(
               leading: Icon(Icons.school_outlined),
-              title: Text('Sekolah Menengah Kejuruan'),
+              title: Text('Pendidikan Sebelumnya'),
               subtitle: Text(
-                'SMKs Binong Permai - 2024.',
+                'Tambahkan nama sekolah dan tahun kelulusan.',
               ),
             ),
           ),
