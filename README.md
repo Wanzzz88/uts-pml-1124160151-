@@ -131,7 +131,6 @@ Video presentasi berisi demonstrasi aplikasi terlebih dahulu, kemudian penjelasa
 
 **Link YouTube:** `https://youtu.be/CW6JXToNq9g`
 
-Setelah video berhasil diunggah, ganti teks di atas dengan URL YouTube yang sebenarnya. Pastikan video dapat dibuka oleh dosen, misalnya dengan visibilitas **Unlisted**.
 
 ## Repository
 
